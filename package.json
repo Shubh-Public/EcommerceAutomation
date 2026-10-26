@@ -1,0 +1,47 @@
+{
+  "name": "automation-exercise-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agentic-first Playwright + TypeScript test framework for https://automationexercise.com",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --project=ui",
+    "test:api": "playwright test --project=api",
+    "test:headed": "playwright test --project=ui --headed",
+    "test:debug": "playwright test --project=ui --debug",
+    "test:report": "playwright show-report",
+    "test:allure": "npm run allure:clean && allure run -- playwright test",
+    "allure:generate": "allure generate allure-results --clean",
+    "allure:open": "allure open allure-report",
+    "allure:clean": "node -e \"for (const d of ['allure-results', 'allure-report']) require('node:fs').rmSync(d, { recursive: true, force: true })\"",
+    "test:list": "playwright test --list",
+    "test:guardrails": "node --test \"scripts/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:framework": "node scripts/validate-framework.ts",
+    "validate": "npm run typecheck && npm run lint && npm run format:check && npm run test:guardrails && npm run validate:framework && npm run test:list"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "allure": "^3.22.1",
+    "allure-playwright": "^3.14.0",
+    "dotenv": "^18.0.8",
+    "eslint": "^10.13.0",
+    "eslint-plugin-playwright": "^2.12.1",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.0"
+  },
+  "overrides": {
+    "dompurify": "^3.4.17"
+  }
+}
